@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * 求解子集合
+ * 求解所有子集合
  * */
 public class QiuZiJiHe {
     public static void main(String[] args) {
@@ -23,24 +23,22 @@ public class QiuZiJiHe {
                                LinkedList<Integer> intList) {
         if (index >= ints.length) {
             resultList.add(new LinkedList<>(intList));
-            return;
         } else {
-
+            // 不将第 index 个元素，加入到子集合中
+            helper(index+1, ints, resultList, intList);
+            // 将第 index 个元素，加入到子集合中
+            intList.add(ints[index]);
+            helper(index+1, ints, resultList, intList);
+            intList.removeLast();
         }
-        // 不将第 index 个元素，加入到子集合中
-        helper(index+1, ints, resultList, intList);
-        // 将第 index 个元素，加入到子集合中
-        intList.add(ints[index]);
-        helper(index+1, ints, resultList, intList);
-        intList.removeLast();
     }
 
     private static void output(ArrayList<LinkedList<Integer>> resultList) {
         for (int i=0; i<resultList.size(); i++) {
-            System.out.println("\n====================");
+            System.out.println("\n\n[+]集合====================");
             LinkedList<Integer> ints = resultList.get(i);
             if (ints.isEmpty()) {
-                System.out.print("-");
+                System.out.print("空集");
             } else {
                 ints.forEach(System.out::print);
             }
